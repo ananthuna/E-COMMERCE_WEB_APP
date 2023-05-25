@@ -1,0 +1,84 @@
+.icon {
+    color: red
+}
+
+.icon:hover {
+    color: yellow
+}
+
+.t1:hover {
+    color: #fdd700;
+}
+
+.t2:hover {
+    color: #fdd700;
+}
+
+.t3:hover {
+    color: #fdd700;
+}
+
+.t4:hover {
+    color: #fdd700;
+}
+
+.t5:hover {
+    color: #fdd700;
+}
+
+.t6:hover {
+    color: #fdd700;
+}
+
+.t7:hover {
+    color: #fdd700;
+}
+
+.t8:hover {
+    color: #fdd700;
+}
+
+.t9:hover {
+    color: #fdd700;
+}
+
+.t10:hover {
+    color: #fdd700;
+}
+
+.t11:hover {
+    color: #fdd700;
+}
+
+.t12:hover {
+    color: #fdd700;
+}
+
+.logo1 {
+    transition: 0.3s;
+}
+.logo2 {
+    transition: 0.3s;
+}
+.logo3 {
+    transition: 0.3s;
+}
+.logo4 {
+    transition: 0.3s;
+}
+
+.logo1:hover {
+    transform: translate(0, -10px);
+}
+
+.logo2:hover {
+    transform: translate(0, -10px);
+}
+
+.logo3:hover {
+    transform: translate(0, -10px);
+}
+
+.logo4:hover {
+    transform: translate(0, -10px);
+}
