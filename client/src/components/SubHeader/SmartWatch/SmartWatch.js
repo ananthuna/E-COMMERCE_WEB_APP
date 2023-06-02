@@ -1,11 +1,10 @@
 import { Box, Typography, MenuItem } from '@mui/material'
 import React from 'react'
-// import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import WatchOutlinedIcon from '@mui/icons-material/WatchOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './SmartWatch.css'
 
 function SmartWatch({ prop, type }) {
-    // const [open, setOpen] = useState(false)
 
 
     return (
@@ -16,18 +15,20 @@ function SmartWatch({ prop, type }) {
         >
             <Box sx={{
                 display: 'flex',
-                gap: 1
+                gap: 1,
+                height: '3rem'
             }}
             >
                 <Box
-
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 0.7
+                        gap: 0.7,
+                        cursor: 'pointer'
                     }}>
-                    <Typography>{type}</Typography>
+                    <WatchOutlinedIcon />
+                    <Typography sx={{ fontSize: '0.9rem' }}><b>{type}</b></Typography>
                     <KeyboardArrowDownOutlinedIcon sx={{ fontSize: '1rem' }} />
                 </Box>
             </Box>
@@ -35,7 +36,6 @@ function SmartWatch({ prop, type }) {
                 className='dropdown_menu dropdown_menu--animated dropdown_menu-6'
                 sx={{
                     bgcolor: 'white',
-                    mt: 1.3,
                     borderRadius: 1,
                     borderTop: 4,
                     borderColor: '#fdd700',
@@ -61,8 +61,6 @@ function SmartWatch({ prop, type }) {
                     }}>
                         <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img18/Wearables/Revamp_Dec26th_18/smartwatches_under1500_750x375._CB458301681_.jpg'
                             alt='img' width={600} height={300}></img>
-                        {/* <img src='https://img.freepik.com/premium-psd/limited-offer-12-12-sale-social-media-post-template_122059-1021.jpg'
-                            alt='img' width={300} height={300}></img> */}
                     </Box>
                 </Box>
             </Box>

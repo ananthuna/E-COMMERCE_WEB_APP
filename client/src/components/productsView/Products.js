@@ -37,7 +37,8 @@ function Products({ tab, items }) {
 
 
     const handleView = (item) => () => {
-        if (item) setDetails(item)
+        if (!item) return console.log('item null');
+        setDetails({ ...item })
         navigate('/view')
     }
 
@@ -113,13 +114,15 @@ function Products({ tab, items }) {
             </Alert>}
             <Grid container spacing={0} sx={{ bgcolor: '#F6F3F3', pr: 1.5 }}>
                 {items.map((item, index) =>
-                    <Grid item xs={6} sm={3} md={2} key={item._id} >
+                    <Grid item xs={6} sm={3} md={2} key={item._id} sx={{ mt: 4 }}>
                         <Box key={item._id} sx={{
                             width: '100%',
-                            position: 'relative',
-
+                            // position: 'relative'
                         }}>
-                            <Box >
+                            <Box sx={{
+                                position: 'relative',
+                                ml: '0.1%'
+                            }}>
                                 {wishlist && wishlist.map((wish, index) =>
                                     wish.itemId === item._id &&
 
@@ -157,11 +160,17 @@ function Products({ tab, items }) {
                                     <Box sx={{
                                         width: '100%',
                                         height: '12rem',
-                                        position: 'absolute'
+                                        position: 'absolute',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        pb: 1.5,
+                                        pt: 3,
+                                        mb: 1
                                     }}
                                         onClick={handleView(item)}
                                     >
-                                        <img alt='img' src={baseUrl + '/' + item.url} width='82%' height='100%'></img>
+                                        <img alt='img' src={baseUrl + '/' + item.url} width={150} height={180}></img>
                                     </Box>
                                     <Box sx={{
                                         display: 'flex',
@@ -169,7 +178,7 @@ function Products({ tab, items }) {
                                         p: '1rem',
                                         gap: 0.5,
                                         // position: 'relative',
-                                        pt: '11rem'
+                                        pt: '12rem'
                                     }}
                                         onClick={handleView(item)}
                                     >
@@ -179,21 +188,25 @@ function Products({ tab, items }) {
                                             color: 'lightgrey'
 
                                         }}>
-                                            brant
+                                            {item.brant}
                                         </Typography>
                                         <Typography className='boxZoom' sx={{
                                             fontSize: '1rem',
                                             fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-
-                                        }}>
-                                            {item.name}
+                                            display: 'inline',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}
+                                        >
+                                            {item.name + item.description}
                                         </Typography>
-                                        <Rating name="read-only" value={3} size='small' readOnly />
+                                        <Rating name="read-only" defaultValue={item.rating} precision={0.1} size='small' readOnly />
+                                        <Typography sx={{ color: '#d0012e', fontSize: '1.3rem' }} ><b>Rs.{(item.price - (item.price * item.offer) / 100).toFixed(2)}</b></Typography>
                                         <Box sx={{
                                             display: 'flex',
                                             gap: 1
                                         }}>
-                                            <Typography color='#d0012e' ><b>Rs.{item.price - (item.price * item.offer) / 100}</b></Typography>
                                             <Typography color='black'>{'-' + item.offer + '%'}</Typography>
                                             <Typography color='lightgrey'><s>{'Rs.' + item.price}</s></Typography>
                                         </Box>
@@ -209,16 +222,6 @@ function Products({ tab, items }) {
                                     </Box>
                                 </Box>
                             </Box>
-                            {/* <Box sx={{
-                                mt:-3,
-                                zIndex:100
-                            }}>
-                                <Button
-                                    variant="outlined"
-                                    size='small'
-                                    onClick={() => handleCart(item)}
-                                >+ add to cart</Button>
-                            </Box> */}
                         </Box>
                     </Grid>
                 )}

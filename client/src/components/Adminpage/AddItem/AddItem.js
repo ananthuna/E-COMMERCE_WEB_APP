@@ -26,8 +26,13 @@ const Transition = React.forwardRef(function Transition(
 
 export default function FullScreenDialog() {
     const [open, setOpen] = React.useState(false);
-    const { register, handleSubmit, reset} = useForm({ mode: "onBlur" }); //removed ', formState: { errors } '
+    const { register, handleSubmit, reset } = useForm({ mode: "onBlur" }); //removed ', formState: { errors } '
     const [images, setImages] = React.useState();
+    const [features, setFeatures] = React.useState([])
+    const [feature, setFeature] = React.useState()
+    const [colors, setColors] = React.useState([])
+    const [color, setColor] = React.useState()
+    const [itemData, setItemData] = React.useState()
 
     const upload = (event) => {
         setImages(event.target.files[0]);
@@ -35,26 +40,34 @@ export default function FullScreenDialog() {
 
     const handleUpload = (data) => {
 
-        let user = localStorage.getItem("user")
-        user = JSON.parse(user)
-        const Data = JSON.stringify(data)
+        if (!images) return console.log('imageis empty');
+        const Data = JSON.stringify({ ...data, features, colors })
         const formData = new FormData()
         formData.append("file", images)
         formData.append("item", Data)
+
+        let user = localStorage.getItem("user")
+        user = JSON.parse(user)
         const customConfig = {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${user.token}`
             }
         }
+        console.log('add item');
+        console.log(formData);
+        console.log(user.token);
         axios.post(`${baseUrl}/api/item/addItem`, formData, customConfig)
             .then((res) => {
                 alert('item added')
                 reset()
                 setImages(null)
+                setFeatures([])
+                setColors([])
                 console.log(res.data);
             })
     }
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -63,6 +76,22 @@ export default function FullScreenDialog() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleFeature = (e) => {
+        // console.log(e.key);
+        if (e.key === 'Enter') {
+            setFeatures(pre => [...pre, feature])
+            setFeature('')
+        }
+    }
+
+    const handleColor = (e) => {
+        // console.log(e.key);
+        if (e.key === 'Enter') {
+            setColors(pre => [...pre, color])
+            setColor('')
+        }
+    }
 
     return (
         <div>
@@ -111,6 +140,8 @@ export default function FullScreenDialog() {
                             gap: 1,
                             width: '25rem'
                         }}>
+
+                            {/* add product name */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Name"
@@ -121,6 +152,8 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('name', { required: true })}
                             />
+
+                            {/* add discrption */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Discription"
@@ -131,6 +164,112 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('description', { required: true })}
                             />
+
+                            {/* display added features */}
+                            <Box sx={{ pl: 1 }}>
+                                {features && features.length > 0 && features.map((item, index) =>
+                                    <Box key={index} sx={{
+                                        display: 'flex',
+                                        bgcolor: 'lightgrey',
+                                        borderRadius: 1,
+                                        gap: 1,
+                                        p: 1,
+                                        mt: 1
+                                    }}>
+                                        <CloseIcon
+                                            onClick={() => {
+                                                const array = features
+                                                array.splice(index, 1)
+                                                setFeatures([...array])
+                                            }}
+                                        />
+                                        <Typography sx={{
+                                            maxWidth: '30rem',
+                                            fontSize: '0.9rem'
+                                        }}>{item}</Typography>
+                                    </Box>
+                                )}
+                            </Box>
+
+                            {/* add features */}
+                            <TextField
+                                style={{ width: 400 }}
+                                label="add features"
+                                id="features"
+                                name='features'
+                                size="small"
+                                autoFocus
+                                required
+                                value={feature}
+                                onChange={(e) => setFeature(e.target.value)}
+                                onKeyDown={handleFeature}
+                            />
+
+                            {/* display added colors */}
+                            <Box sx={{ pl: 1 }}>
+                                {colors && colors.length > 0 && colors.map((item, index) =>
+                                    <Box key={index} sx={{
+                                        display: 'flex',
+                                        bgcolor: 'lightgrey',
+                                        borderRadius: 1,
+                                        gap: 1,
+                                        p: 1,
+                                        mt: 1
+                                    }}>
+                                        <CloseIcon
+                                            onClick={() => {
+                                                const array = colors
+                                                array.splice(index, 1)
+                                                setColors([...array])
+                                            }}
+                                        />
+                                        <Typography sx={{
+                                            maxWidth: '30rem',
+                                            fontSize: '0.9rem'
+                                        }}>{item}</Typography>
+                                    </Box>
+                                )}
+                            </Box>
+
+                            {/* add colors */}
+                            <TextField
+                                style={{ width: 400 }}
+                                label="add colors"
+                                id="color"
+                                name='color'
+                                size="small"
+                                autoFocus
+                                required
+                                value={color}
+                                onChange={(e) => setColor(e.target.value)}
+                                onKeyDown={handleColor}
+                            />
+
+                            {/*add rating */}
+                            <TextField
+                                style={{ width: 400 }}
+                                label="Add Rating"
+                                id="rating"
+                                name="rating"
+                                size="small"
+                                autoFocus
+                                required
+                                {...register('rating', { required: true })}
+                            />
+
+                            {/* add Brant */}
+                            <TextField
+                                style={{ width: 400 }}
+                                label="Add Brant"
+                                id="brant"
+                                name="brant"
+                                size="small"
+                                autoFocus
+                                required
+                                {...register('brant', { required: true })}
+                            />
+
+                            {/* add category */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Category"
@@ -141,6 +280,8 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('category', { required: true })}
                             />
+
+                            {/* add price */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Price"
@@ -151,6 +292,8 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('price', { required: true })}
                             />
+
+                            {/* add stock quantity */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Quantity"
@@ -161,6 +304,8 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('quantity', { required: true })}
                             />
+
+                            {/* add weight */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Weight"
@@ -171,6 +316,8 @@ export default function FullScreenDialog() {
                                 required
                                 {...register('weight', { required: true })}
                             />
+
+                            {/* add offer */}
                             <TextField
                                 style={{ width: 400 }}
                                 label="Offer"
@@ -229,6 +376,7 @@ export default function FullScreenDialog() {
                     </Button>
                 </Box>
             </Dialog>
+
         </div>
     );
 }

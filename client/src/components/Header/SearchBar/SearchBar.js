@@ -1,12 +1,8 @@
 import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-// import IconButton from "@mui/material/IconButton";
 import styled from '@emotion/styled';
 import InputAdornment from '@mui/material/InputAdornment';
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-// import { ClickAwayListener } from '@mui/base';
-// import Menu from '@mui/material/Menu';
 import SelectButton from '../../SelectButton/SelectButton'
 
 const CssTextField = styled(TextField)({
@@ -40,8 +36,6 @@ const CssTextField = styled(TextField)({
 function SearchBar() {
 
   const [searchInput, setSearchInput] = useState("");
-  // const [list, setList] = useState([])
-  // const [open, setOpen] = useState(false)
 
   const categorys = [
     'All Collections',

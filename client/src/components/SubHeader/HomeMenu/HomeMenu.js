@@ -1,12 +1,10 @@
 import { Box, Typography, MenuItem } from '@mui/material'
 import React from 'react'
-// import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './HomeMenu.css'
 
 function HomeMenu({ prop, type }) {
-    // const [open, setOpen] = useState(false)
-
 
     return (
         <Box sx={{
@@ -16,18 +14,20 @@ function HomeMenu({ prop, type }) {
         >
             <Box sx={{
                 display: 'flex',
-                gap: 1
+                gap: 1,
+                height: '3rem'
             }}
             >
                 <Box
-
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 0.7
+                        gap: 0.7,
+                        cursor: 'pointer'
                     }}>
-                    <Typography>{type}</Typography>
+                    <BusinessCenterOutlinedIcon />
+                    <Typography sx={{ fontSize: '0.9rem' }}><b>{type}</b></Typography>
                     <KeyboardArrowDownOutlinedIcon sx={{ fontSize: '1rem' }} />
                 </Box>
             </Box>
@@ -35,7 +35,6 @@ function HomeMenu({ prop, type }) {
                 className='dropdown_menu dropdown_menu--animated dropdown_menu-6'
                 sx={{
                     bgcolor: 'white',
-                    mt: 1.3,
                     borderRadius: 1,
                     borderTop: 4,
                     borderColor: '#fdd700',

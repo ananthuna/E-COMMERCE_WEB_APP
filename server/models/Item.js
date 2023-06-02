@@ -17,6 +17,7 @@ const itemSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        features: [],
         category: {
             type: String,
             required: true
@@ -39,7 +40,15 @@ const itemSchema = new mongoose.Schema(
         url: {
             type: String,
             required: true
-        }
+        },
+        rating: {
+            type: Number
+        },
+        brant: {
+            type: String,
+            require: true
+        },
+        colors: []
     },
     {
         timestamps: true

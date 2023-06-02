@@ -6,7 +6,7 @@ export const UserContext = createContext(null)
 export default function Context({ children }) {
     const [details, setDetails] = useState(null)
     const [value, setValue] = useState(0);
-    const [user, setUser] = React.useState({})
+    const [user, setUser] = React.useState()
     const [cartitems, setCartitems] = useState({})
     const [address, setAddress] = React.useState()
     const [method, setMethod] = React.useState('');

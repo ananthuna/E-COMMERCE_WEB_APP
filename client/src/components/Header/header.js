@@ -13,22 +13,20 @@ import { UserContext } from '../../Context/Context';
 import axios from 'axios';
 import { baseUrl } from '../../url';
 import HeadsetIcon from '@mui/icons-material/Headset';
-// import SubHeader from '../SubHeader/SubHeader'
 
 
 export default function PrimarySearchAppBar() {
     const { user, setUser } = React.useContext(UserContext)
     const navigate = useNavigate()
-    // const [open, setOpen] = React.useState(false)
 
 
     React.useEffect(() => {
-        const loginData = {
-            email: 'kashi@gmail.com',
-            password: 'Kashi@123',
-            token: ''
-        }
-        const Data = JSON.stringify(loginData);
+        // const loginData = {
+        //     email: 'kashi@gmail.com',
+        //     password: 'Kashi@123',
+        //     token: ''
+        // }
+        // const Data = JSON.stringify(loginData);
         const customConfig = {
             headers: {
                 'Content-Type': 'application/json'
@@ -36,48 +34,31 @@ export default function PrimarySearchAppBar() {
         };
 
         let User = JSON.parse(localStorage.getItem("user"))
-        setUser(User)
-
-        if (!User) {
-            axios.post(`${baseUrl}/api/user/login`, Data, customConfig).then((response) => {
-                if (!response.data.err) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
-                } else {
-                    console.log('header login err');
-                    console.log(response.data.err);
-                }
-            })
+        if (User) {
+            setUser(User)
+        } else {
+            navigate('/login')
         }
 
+        // if (!User) {
+        //     axios.post(`${baseUrl}/api/user/login`, Data, customConfig).then((response) => {
+        //         if (!response.data.err) {
+        //             localStorage.setItem("user", JSON.stringify(response.data));
+        //             setUser(User)
+        //         } else {
+        //             console.log('header login err');
+        //             console.log(response.data.err);
+        //         }
+        //     })
+        // }
+
     }, [])
-
-    // const handleScroll = () => {
-    //     console.log('position');
-    //     console.log(window.pageYOffset);
-    //     if (window.pageYOffset > 499) {
-    //         setOpen(true)
-    //     } else {
-    //         setOpen(false)
-    //     }
-    // }
-
-    // React.useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
-
-
-
 
 
     return (
         <Box className='header'
             sx={{
                 backgroundColor: "#1c2a5e",
-                // width:'90%'
             }}
         >
             <Box sx={{
@@ -126,26 +107,19 @@ export default function PrimarySearchAppBar() {
                                 display: 'flex',
                                 gap: '10px'
                             }}>
-                                {/* <IconButton> */}
                                 <Cart />
-                                {/* </IconButton> */}
-                                {/* <IconButton> */}
                                 <Account />
-                                {/* </IconButton> */}
                             </Box>
                         )}
                     </Box>
-
                 ) : (
                     <Box className='right-items'>
                         <Typography className='selection' onClick={() => navigate('/login')}>Login</Typography>
                         <Typography color='white' >/</Typography>
                         <Typography className='selection' color='white' onClick={() => navigate('/signup')}>Signup</Typography>
                     </Box>
-                )
-                }
+                )}
             </Box >
-
         </Box >
     );
 }

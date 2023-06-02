@@ -12,6 +12,7 @@ function cartIcon() {
     const navigate = useNavigate()
     const { cartitems, setCartitems } = useContext(UserContext)
     const [items, setItems] = useState([])
+
     useEffect(() => {
         let user = localStorage.getItem("user")
         user = JSON.parse(user)
@@ -27,7 +28,7 @@ function cartIcon() {
                 setCartitems(res.data)
             }).catch((err) => {
                 if (err.response.statusText === 'Unauthorized') {
-                    localStorage.clear()
+                    // localStorage.clear()
                     navigate('/')
                 }
             })
@@ -36,7 +37,7 @@ function cartIcon() {
 
     useEffect(() => {
         setItems(cartitems.items)
-    }, [cartitems])
+    }, [])
 
 
 

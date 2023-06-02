@@ -22,25 +22,31 @@ function view() {
     const navigate = useNavigate()
     const { details } = useContext(UserContext)
     const [product, setProduct] = useState({})
+    const [features, setFeatures] = useState([])
     const pageTopRef = useRef(null)
-
-    const colors = [
-        'Red',
-        'White',
-        'Gold',
-        'Yellow'
-    ]
+    const [colors, setColors] = useState([])
+    const [rate, setRate] = useState()
 
     useEffect(() => {
 
         console.log(details)
-        if (details) localStorage.setItem("myObject", JSON.stringify(details));
+        if (details) {
+            localStorage.setItem("myObject", JSON.stringify(details));
+
+        }
 
         let item = localStorage.getItem("myObject");
-        setProduct(JSON.parse(item))
+        item = JSON.parse(item)
+        console.log(item.features);
+        setFeatures([...item.features])
+        setColors([...item.colors])
+        setProduct(item)
+        setRate(item.rating)
+        console.log(item.rating);
         pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
         console.log('views');
         console.log(details);
+        console.log(item.rating);
     }, [])
 
 
@@ -109,13 +115,19 @@ function view() {
                 p: 2
 
             }}>
-                <Typography><b>Vivo iQOO 7 Legend - 4000 mAh Lithium-Polymer</b></Typography>
+                <Typography sx={{
+                    maxWidth: '50%',
+                    display: 'inline',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                }}><b>{product.name + product.description}</b></Typography>
                 <Box sx={{
                     display: 'flex',
                     gap: 2,
                     pr: 3
                 }}>
-                    <HomeOutlinedIcon sx={{ fontSize: 18, cursor: 'pointer' }} onClicke={()=>navigate('/')} />
+                    <HomeOutlinedIcon sx={{ fontSize: 18, cursor: 'pointer' }} onClick={() => navigate('/')} />
                     <KeyboardArrowRightIcon sx={{ fontSize: 18 }} />
                     <Typography sx={{ fontSize: 13 }}>Mobile</Typography>
                 </Box>
@@ -146,7 +158,7 @@ function view() {
                         borderRadius: 2,
                         borderColor: 'lightgrey'
                     }}>
-                        <img src={baseUrl + '/' + product.url} alt='img' width={350} height={300}></img>
+                        <img src={baseUrl + '/' + product.url} alt='img' width={350} height={400}></img>
                     </Box>
                 </Box>
                 <Box sx={{
@@ -158,28 +170,36 @@ function view() {
                         sx={{
                             pl: '0rem',
                             fontSize: '1.4rem',
-                            maxWidth: '22rem'
-                        }}><b>Vivo iQOO 7 Legend - 4000 mAh Lithium-Polymer</b></Typography>
+                            maxWidth: '100%'
+                        }}><b>{product.name + product.description}</b></Typography>
                     <hr />
-                    <Box sx={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-start',
-                        gap: 1
-                    }}>
-                        <FiberManualRecordIcon sx={{
-                            fontSize: '0.5rem',
-                            mt: 0.8
-                            // color: 'lightgrey'
-                        }} />
-                        <Typography sx={{
-                            fontSize: '0.8rem',
-                            color: 'grey',
-                            maxWidth: '35rem'
-                        }}>16.82cm (6.62) 120Hz AMOLED Display with 1300 peak brightness along with 300Hz Touch Sampling Rate</Typography>
-                    </Box>
+                    {features.map((item, index) =>
+                        <Box key={index} sx={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            justifyContent: 'flex-start',
+                            gap: 1
+                        }}>
+                            <FiberManualRecordIcon sx={{
+                                fontSize: '0.5rem',
+                                mt: 0.8
+                                // color: 'lightgrey'
+                            }} />
+                            <Typography sx={{
+                                fontSize: '0.8rem',
+                                color: 'grey',
+                                maxWidth: '35rem'
+                            }}>{item}</Typography>
+                        </Box>
+                    )}
                     <hr />
-                    <Rating name="read-only" value={3} size='small' readOnly />
+                    {product.rating && <Rating
+                        name="read-only"
+                        value={product.rating}
+                        precision={0.1}
+                        max={5}
+                        size='small'
+                        readOnly />}
                     <hr />
                     <Box>
                         <Typography sx={{ color: '#ff0000' }}><b>Save -{product.offer + '%'}</b></Typography>
@@ -189,7 +209,7 @@ function view() {
                             gap: 2
                             // justifyContent: 'center'
                         }}>
-                            <Typography sx={{ fontSize: '1.5rem', color: '#d62148' }} ><b>Rs.{product.price - (product.price * product.offer) / 100}</b></Typography>
+                            <Typography sx={{ fontSize: '1.5rem', color: '#d62148' }} ><b>Rs.{(product.price - (product.price * product.offer) / 100).toFixed(2)}</b></Typography>
                             <Typography color='lightgrey'><s>{'Rs.' + product.price}</s></Typography>
                         </Box>
                     </Box>
@@ -204,9 +224,9 @@ function view() {
                             <Typography ><b><DoneIcon sx={{ fontSize: 20 }} /> Availability :</b></Typography>
                         </Box>
                         <Box>
-                            <Typography sx={{ fontSize: 15, color: '#8b8b8b' }}>vivo</Typography>
-                            <Typography sx={{ fontSize: 15, color: '#8b8b8b' }}>Mobile</Typography>
-                            <Typography sx={{ fontSize: 15, color: '#34dd8d' }}><b>20 In stock</b></Typography>
+                            <Typography sx={{ fontSize: 15, color: '#8b8b8b' }}>{product.brant}</Typography>
+                            <Typography sx={{ fontSize: 15, color: '#8b8b8b' }}>{product.category}</Typography>
+                            <Typography sx={{ fontSize: 15, color: '#34dd8d' }}><b>{product.quantity > 0 ? 'In Stock' : 'Out Of Stock'} </b></Typography>
                         </Box>
                     </Box>
                     <hr />
@@ -230,7 +250,6 @@ function view() {
                         </Box>
                         <Box>
                             <Typography sx={{ fontSize: '0.9rem' }}><b>Quantity</b></Typography>
-
                             <Box sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -269,26 +288,9 @@ function view() {
                     }}>
                         <Typography sx={{
                             color: '#ff274e'
-                        }}><b>HURRY! ONLY 20 LEFT IN STOCK.</b></Typography>
+                        }}><b>HURRY! ONLY {product.quantity} LEFT IN STOCK.</b></Typography>
                     </Box>
                     <hr />
-                    {/* {product && <Box sx={{
-                        pt: '1rem',
-                        // pl: '2rem'
-                    }}>
-                        <Typography sx={{ fontSize: '1.5rem', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}>{product.name}</Typography>
-                        <Typography>{product.description}</Typography>
-                        <Box sx={{
-                            display: 'flex',
-                            gap: 1
-                        }}>
-                            <Typography sx={{ fontSize: '1.5rem' }} ><b>₹{product.price - (product.price * product.offer) / 100}</b></Typography>
-                            <Typography color='lightgrey'><s>{product.price}</s></Typography>
-                            <Typography color='green'>{product.offer + '% OFF'}</Typography>
-                        </Box>
-                        <Typography>{product.weight}g</Typography>
-                    </Box>} */}
-
                 </Box>
             </Box>
         </Box >

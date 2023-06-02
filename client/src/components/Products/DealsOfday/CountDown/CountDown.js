@@ -6,7 +6,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 const calculateTimeLeft = () => {
 
   let year = new Date().getFullYear()
-  const difference = +new Date(`05/31/${year}`) - +new Date();
+  const difference = +new Date(`06/20/${year}`) - +new Date();
   let timeLeft = {};
   if (difference > 0) {
     timeLeft = {

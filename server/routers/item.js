@@ -7,15 +7,14 @@ const path = require('../public/path')
 
 //create item
 router.post('/addItem', Auth, async (req, res) => {
+    console.log('add item');
     let imageFile = req.files.file
     let name = `${Date.now()}-${req.files.file.name}`
     imageFile.mv(`${path.path}/${name}`, function (err) {
         if (err) return console.log(err);
-        console.log('saved');
+        console.log('image saved');
     });
-
     let item = JSON.parse(req.body.item)
-    console.log(item);
     try {
         const newItem = new Item({
             ...item,
@@ -23,7 +22,9 @@ router.post('/addItem', Auth, async (req, res) => {
             url: name
         })
         await newItem.save()
+        console.log('item added');
         res.status(201).json(newItem)
+
     } catch (err) {
         res.status(400).json(err.message)
     }
@@ -82,6 +83,7 @@ router.delete('/items/:id', Auth, async (req, res) => {
         if (!deletedItem) {
             res.status(404).json({ error: "Item not found" })
         }
+        console.log(deletedItem.name + ' :deleted');
         res.send(deletedItem)
     } catch (error) {
         res.status(400).json(error.message)

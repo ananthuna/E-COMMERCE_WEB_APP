@@ -8,12 +8,11 @@ import Cart from './pages/Cart'
 import Order from './pages/Order'
 import Account from './pages/Account';
 import Admin from './pages/Admin'
-
-import {BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Category from './pages/Category';
 
 function App() {
   return (
-
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
@@ -24,11 +23,9 @@ function App() {
         <Route path='/order' element={<Order />}></Route>
         <Route path='/account' element={<Account />}></Route>
         <Route path='/admin' element={<Admin />}></Route>
+        <Route path='/category' element={<Category />}></Route>
       </Routes>
     </BrowserRouter>
-
-
   );
 }
-
 export default App;

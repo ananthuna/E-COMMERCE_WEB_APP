@@ -20,13 +20,15 @@ function DealsOfDay({ items }) {
                 <Typography sx={{
                     fontSize: '1.5rem'
                 }}><b>Deals of the day</b></Typography>
-                <CountDown/>
+                <CountDown />
             </Box>
             <Box sx={{
                 border: 2,
                 borderColor: '#fdd700',
                 pl: 1.5,
-                mt: 1,
+                pt: 1,
+                pb: 7,
+                m: 1,
                 width: '99%'
             }}>
                 <Products items={items} />

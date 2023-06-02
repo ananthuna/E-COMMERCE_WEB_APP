@@ -14,10 +14,29 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Button } from '@mui/material';
 import axios from '../../../axios'
+import { baseUrl } from '../../../url';
 
 
-function Row({ row }) {
+function Row({ row, setRows, rows }) {
     const [open, setOpen] = React.useState(false);
+
+    const handleRemove = (item) => {
+        let user = localStorage.getItem("user")
+        user = JSON.parse(user)
+        const customConfig = {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }
+        axios.delete(`${baseUrl}/api/item/items/${item._id}`, customConfig)
+            .then((res) => {
+                const deletedIrem = res.data
+                const array = rows
+                const newArray = array.filter((item) => item._id !== deletedIrem._id)
+                setRows([...newArray])
+            })
+
+    }
 
 
 
@@ -42,7 +61,7 @@ function Row({ row }) {
                 <TableCell align="right">{row.offer}</TableCell>
                 <TableCell align="right">{row.weight}</TableCell>
                 <TableCell align="right"><Button>Edit</Button></TableCell>
-                <TableCell align="right"><Button>Remove</Button></TableCell>
+                <TableCell align="right"><Button onClick={() => handleRemove(row)}>Remove</Button></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -60,20 +79,6 @@ function Row({ row }) {
                                         <TableCell align="right">Total price ($)</TableCell>
                                     </TableRow>
                                 </TableHead>
-                                {/* <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow key={historyRow.date}>
-                                            <TableCell component="th" scope="row">
-                                                {historyRow.date}
-                                            </TableCell>
-                                            <TableCell>{historyRow.customerId}</TableCell>
-                                            <TableCell align="right">{historyRow.amount}</TableCell>
-                                            <TableCell align="right">
-                                                {Math.round(historyRow.amount * row.Price * 100) / 100}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody> */}
                             </Table>
                         </Box>
                     </Collapse>
@@ -87,12 +92,12 @@ function Row({ row }) {
 export default function CollapsibleTable() {
     const [rows, setRows] = React.useState([])
     React.useEffect(() => {
-      axios.get('http://localhost:3001/api/item/items').then((doc)=>{
-        setRows(doc.data)
-        console.log(doc.data);
-      })
-    }, [rows])
-    
+        axios.get('http://localhost:3001/api/item/items').then((doc) => {
+            setRows(doc.data)
+            // console.log(doc.data);
+        })
+    }, [])
+
 
     return (
         <TableContainer component={Paper}>
@@ -110,7 +115,7 @@ export default function CollapsibleTable() {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <Row key={row.name} row={row} />
+                        <Row key={row.name} row={row} setRows={setRows} rows={rows} />
                     ))}
                 </TableBody>
             </Table>

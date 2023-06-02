@@ -1,11 +1,10 @@
 import { Box, Typography, MenuItem } from '@mui/material'
 import React from 'react'
-// import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import LaptopMacOutlinedIcon from '@mui/icons-material/LaptopMacOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './LaptopMenu.css'
 
 function LaptopMenu({ prop, type }) {
-    // const [open, setOpen] = useState(false)
 
 
     return (
@@ -16,18 +15,20 @@ function LaptopMenu({ prop, type }) {
         >
             <Box sx={{
                 display: 'flex',
-                gap: 1
+                gap: 1,
+                height: '3rem'
             }}
             >
                 <Box
-
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 0.7
+                        gap: 0.7,
+                        cursor: 'pointer'
                     }}>
-                    <Typography>{type}</Typography>
+                    <LaptopMacOutlinedIcon />
+                    <Typography sx={{ fontSize: '0.9rem' }}><b>{type}</b></Typography>
                     <KeyboardArrowDownOutlinedIcon sx={{ fontSize: '1rem' }} />
                 </Box>
             </Box>
@@ -35,7 +36,6 @@ function LaptopMenu({ prop, type }) {
                 className='dropdown_menu dropdown_menu--animated dropdown_menu-6'
                 sx={{
                     bgcolor: 'white',
-                    mt: 1.3,
                     borderRadius: 1,
                     borderTop: 4,
                     borderColor: '#fdd700',

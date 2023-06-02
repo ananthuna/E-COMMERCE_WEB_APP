@@ -91,6 +91,7 @@ function accountIcon() {
             })
 
     }
+
     return (
         <Box>
             <Box>
@@ -107,10 +108,6 @@ function accountIcon() {
                         sx={{
                             fontSize: 30,
                             color: 'white',
-                            // "&:hover": {
-                            //     color: 'yellow',
-                            //     cursor: "pointer",
-                            // }
                         }} />
                 </IconButton>
             </Box>
