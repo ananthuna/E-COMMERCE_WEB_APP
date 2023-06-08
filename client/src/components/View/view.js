@@ -25,7 +25,7 @@ function view() {
     const [features, setFeatures] = useState([])
     const pageTopRef = useRef(null)
     const [colors, setColors] = useState([])
-    const [rate, setRate] = useState()
+    // const [rate, setRate] = useState()
 
     useEffect(() => {
 
@@ -41,7 +41,7 @@ function view() {
         setFeatures([...item.features])
         setColors([...item.colors])
         setProduct(item)
-        setRate(item.rating)
+        // setRate(item.rating)
         console.log(item.rating);
         pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
         console.log('views');

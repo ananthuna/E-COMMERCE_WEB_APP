@@ -7,6 +7,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import './product.css'
 import { baseUrl } from '../../url'
 import axios from 'axios'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 
@@ -170,7 +172,13 @@ function Products({ tab, items }) {
                                     }}
                                         onClick={handleView(item)}
                                     >
-                                        <img alt='img' src={baseUrl + '/' + item.url} width={150} height={180}></img>
+                                        <LazyLoadImage
+                                            effect='blur'
+                                            alt='img'
+                                            src={baseUrl + '/' + item.url}
+                                            width={150}
+                                            height={180}
+                                        ></LazyLoadImage>
                                     </Box>
                                     <Box sx={{
                                         display: 'flex',

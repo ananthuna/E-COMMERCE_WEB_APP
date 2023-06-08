@@ -14,19 +14,18 @@ import axios from 'axios';
 import { baseUrl } from '../../url';
 import HeadsetIcon from '@mui/icons-material/Headset';
 
-
 export default function PrimarySearchAppBar() {
     const { user, setUser } = React.useContext(UserContext)
     const navigate = useNavigate()
 
 
     React.useEffect(() => {
-        // const loginData = {
-        //     email: 'kashi@gmail.com',
-        //     password: 'Kashi@123',
-        //     token: ''
-        // }
-        // const Data = JSON.stringify(loginData);
+        const loginData = {
+            email: 'kashi@gmail.com',
+            password: 'Kashi@123',
+            token: ''
+        }
+        const Data = JSON.stringify(loginData);
         const customConfig = {
             headers: {
                 'Content-Type': 'application/json'
@@ -40,17 +39,17 @@ export default function PrimarySearchAppBar() {
             navigate('/login')
         }
 
-        // if (!User) {
-        //     axios.post(`${baseUrl}/api/user/login`, Data, customConfig).then((response) => {
-        //         if (!response.data.err) {
-        //             localStorage.setItem("user", JSON.stringify(response.data));
-        //             setUser(User)
-        //         } else {
-        //             console.log('header login err');
-        //             console.log(response.data.err);
-        //         }
-        //     })
-        // }
+        if (!User) {
+            axios.post(`${baseUrl}/api/user/login`, Data, customConfig).then((response) => {
+                if (!response.data.err) {
+                    localStorage.setItem("user", JSON.stringify(response.data));
+                    setUser(User)
+                } else {
+                    console.log('header login err');
+                    console.log(response.data.err);
+                }
+            })
+        }
 
     }, [])
 

@@ -27,8 +27,8 @@ function WishList() {
 
         axios.get(`${baseUrl}/api/wishlist/wishlistitems`, customConfig)
             .then((res) => {
-                setProducts(res.data)
-                // console.log(res.data)
+                res.data.length > 0 && setProducts(res.data)
+                console.log(res.data)
             }).catch((err) => {
                 console.log(err);
             })
@@ -73,15 +73,15 @@ function WishList() {
                 overflow: "hidden",
                 overflowY: "scroll",
             }}>
-                {products && products.map((product) =>
-                    <Box sx={{
+                {products && products.length > 0 && products.map((product, index) =>
+                    product && <Box sx={{
                         border: 1,
                         borderColor: 'lightgrey',
                         width: '65rem',
                         display: 'flex',
                         justifyContent: 'space-between',
                         ml: '-2rem'
-                    }} key={product._id}>
+                    }} key={index}>
                         <Box sx={{
                             mt: '1rem',
                             mb: '1rem',

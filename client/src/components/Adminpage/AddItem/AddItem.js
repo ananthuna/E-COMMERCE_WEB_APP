@@ -32,7 +32,7 @@ export default function FullScreenDialog() {
     const [feature, setFeature] = React.useState()
     const [colors, setColors] = React.useState([])
     const [color, setColor] = React.useState()
-    const [itemData, setItemData] = React.useState()
+    // const [itemData, setItemData] = React.useState()
 
     const upload = (event) => {
         setImages(event.target.files[0]);
