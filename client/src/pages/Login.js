@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -42,6 +42,46 @@ export default function SignIn({ socket }) {
   const [passwordError, setPasswordError] = useState(false)
   const [open, setOpen] = useState(false)
 
+  useEffect(() => {
+    const loginData = {
+      email: 'kashi@gmail.com',
+      password: 'Kashi@123',
+      token: ''
+    }
+    const Data = JSON.stringify(loginData);
+    const customConfig = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    axios.post(`${baseUrl}/api/user/login`, Data, customConfig).then((response) => {
+      if (response.data.err) {
+        switch (response.data.err) {
+          case "No account":
+            setEmailError(true)
+            setPasswordError(false)
+            setOpen(false)
+            break;
+          case "invalid password":
+            setPasswordError(true)
+            setEmailError(false)
+            setOpen(false)
+            break;
+          default:
+            setEmailError(true)
+            setPasswordError(true)
+            setOpen(false)
+            break;
+        }
+      } else {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate('/')
+        // history.push('/')
+      }
+    })
+  }, [])
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -57,6 +97,7 @@ export default function SignIn({ socket }) {
       password: data.get('password'),
       token: JSON.parse(token)
     }
+
     const Data = JSON.stringify(loginData);
     const customConfig = {
       headers: {

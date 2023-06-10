@@ -21,7 +21,10 @@ export default function Context({ children }) {
     const [speaker, setSpeaker] = useState([])
     const [watch, setWatch] = useState([])
     const [headset, setHeadset] = useState([])
-    const [search, setSearch] = useState([])
+    const [search, setSearch] = useState({
+        items: [],
+        title: ''
+    })
 
 
     useEffect(() => {

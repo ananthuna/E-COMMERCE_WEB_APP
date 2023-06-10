@@ -33,7 +33,11 @@ function Products({ tab, items }) {
             .then((res) => {
                 setWishlist(res.data.items)
             }).catch((err) => {
-                navigate('/')
+                if (err) return navigate('/login')
+                // if (err.response.data.error === 'Authentication required') {
+                    // console.log('product card wishlist get axios error..');
+                    // return navigate('/login')
+                // }
             })
     }, [])
 
@@ -173,7 +177,7 @@ function Products({ tab, items }) {
                                         onClick={handleView(item)}
                                     >
                                         <LazyLoadImage
-                                            effect='blur'
+                                            // effect='blur'
                                             alt='img'
                                             src={baseUrl + '/' + item.url}
                                             width={150}

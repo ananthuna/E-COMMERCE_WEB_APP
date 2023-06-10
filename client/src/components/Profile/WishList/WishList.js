@@ -30,6 +30,7 @@ function WishList() {
                 res.data.length > 0 && setProducts(res.data)
                 console.log(res.data)
             }).catch((err) => {
+                console.log('profile wishlist get axios error');
                 console.log(err);
             })
     }, [wishlist])
@@ -54,6 +55,7 @@ function WishList() {
             .then((res) => {
                 setWishlist(res.data.items)
             }).catch((err) => {
+                console.log('profile wishlist post axios error');
                 console.log(err);
             })
     }

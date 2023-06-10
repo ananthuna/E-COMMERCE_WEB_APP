@@ -28,25 +28,15 @@ function view() {
     // const [rate, setRate] = useState()
 
     useEffect(() => {
-
-        console.log(details)
         if (details) {
             localStorage.setItem("myObject", JSON.stringify(details));
-
         }
-
         let item = localStorage.getItem("myObject");
         item = JSON.parse(item)
-        console.log(item.features);
         setFeatures([...item.features])
         setColors([...item.colors])
         setProduct(item)
-        // setRate(item.rating)
-        console.log(item.rating);
         pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
-        console.log('views');
-        console.log(details);
-        console.log(item.rating);
     }, [])
 
 
@@ -62,7 +52,7 @@ function view() {
                 'Authorization': `Bearer ${user.token}`
             }
         }
-        console.log(user.token);
+        // console.log(user.token);
         let data = {
             itemId: product._id,
             quantity: 1,
@@ -73,10 +63,12 @@ function view() {
 
         axios.post(`${baseUrl}/api/cart/cartitems`, Data, customConfig)
             .then((res) => {
-                console.log(res.data)
-                navigate('/')
+                // console.log(res.data)
+                // navigate('/')
             })
     }
+
+
     const handleOrder = () => {
         let user = localStorage.getItem("user")
         user = JSON.parse(user)
@@ -86,7 +78,7 @@ function view() {
                 'Authorization': `Bearer ${user.token}`
             }
         }
-        console.log(user.token);
+        // console.log(user.token);
         let data = {
             itemId: product._id,
             quantity: 1,
@@ -95,7 +87,7 @@ function view() {
         const Data = JSON.stringify(data)
         axios.post(`${baseUrl}/api/cart/cartitems`, Data, customConfig)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 navigate('/cart')
             })
     }
@@ -107,6 +99,8 @@ function view() {
             flexDirection: 'column',
             pt: '5.6rem'
         }}>
+
+            {/* sub bar with nevigate */}
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -115,13 +109,15 @@ function view() {
                 p: 2
 
             }}>
-                <Typography sx={{
-                    maxWidth: '50%',
-                    display: 'inline',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                }}><b>{product.name + product.description}</b></Typography>
+                <Box>
+                    {product && < Typography sx={{
+                        maxWidth: '50%',
+                        display: 'inline',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                    }}><b>product name</b></Typography>}
+                </Box>
                 <Box sx={{
                     display: 'flex',
                     gap: 2,
@@ -132,6 +128,8 @@ function view() {
                     <Typography sx={{ fontSize: 13 }}>Mobile</Typography>
                 </Box>
             </Box>
+
+            {/* product view */}
             <Box sx={{
                 position: 'relative',
                 display: 'flex',
@@ -139,7 +137,8 @@ function view() {
                 mb: '1rem',
                 ml: '2rem'
             }}>
-                <Box sx={{
+                {/* product image view */}
+                {/* <Box sx={{
                     width: '40%',
                     height: '87%',
                     display: 'flex',
@@ -160,8 +159,10 @@ function view() {
                     }}>
                         <img src={baseUrl + '/' + product.url} alt='img' width={350} height={400}></img>
                     </Box>
-                </Box>
-                <Box sx={{
+                </Box>   */}
+
+                {/* product details */}
+                {/* <Box sx={{
                     width: '43%',
                     height: '87%',
                     p: 1
@@ -291,7 +292,7 @@ function view() {
                         }}><b>HURRY! ONLY {product.quantity} LEFT IN STOCK.</b></Typography>
                     </Box>
                     <hr />
-                </Box>
+                </Box> */}
             </Box>
         </Box >
     )

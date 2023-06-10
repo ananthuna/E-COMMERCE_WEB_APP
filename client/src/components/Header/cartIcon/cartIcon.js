@@ -10,7 +10,7 @@ import './cartIcon.css'
 
 function cartIcon() {
     const navigate = useNavigate()
-    const { cartitems, setCartitems } = useContext(UserContext)
+    const { setCartitems } = useContext(UserContext)
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -27,17 +27,15 @@ function cartIcon() {
                 setItems(res.data.items)
                 setCartitems(res.data)
             }).catch((err) => {
-                if (err.response.statusText === 'Unauthorized') {
-                    // localStorage.clear()
-                    navigate('/')
-                }
+                if (err) return navigate('/login')
+                // if (err.response.data.error === 'Authentication required') {
+                //     console.log('header cart axios error');
+                //     return navigate('/login')
+                // }
             })
 
-    })
-
-    useEffect(() => {
-        setItems(cartitems.items)
     }, [])
+
 
 
 

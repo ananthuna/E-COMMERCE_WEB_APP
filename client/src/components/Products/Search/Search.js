@@ -4,9 +4,10 @@ import Products from '../../productsView/Products'
 import { UserContext } from '../../../Context/Context'
 
 
-function Search({ items }) {
+function Search() {
     const pageTopRef = useRef(null)
     const { search } = useContext(UserContext)
+    const { items, title } = search
 
     useEffect(() => {
         pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -14,10 +15,10 @@ function Search({ items }) {
 
 
     return (
-        <Box ref={pageTopRef} sx={{
+        <Box  sx={{
             mt: '5rem'
         }}>
-            <Box sx={{
+            <Box ref={pageTopRef} sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'Space-between',
@@ -26,10 +27,7 @@ function Search({ items }) {
             }}>
                 <Typography sx={{
                     fontSize: '1.5rem'
-                }}><b>Search result</b></Typography>
-                {/* <Typography sx={{
-                    fontSize: '1.5rem'
-                }}><b>Top Featured</b></Typography> */}
+                }}><b>{title}</b></Typography>
             </Box>
             <Box sx={{
 

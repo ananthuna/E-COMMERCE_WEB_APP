@@ -87,6 +87,7 @@ function accountIcon() {
                 setUser('')
                 localStorage.removeItem("user");
                 handleClose()
+                console.log('header user loginout.');
                 window.location.reload()
             })
 

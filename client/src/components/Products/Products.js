@@ -2,6 +2,7 @@ import { Box } from '@mui/system'
 import React, { useContext, Suspense, lazy } from 'react'
 // import { useEffect } from 'react';
 import { UserContext } from '../../Context/Context';
+import Search from './Search/Search'
 // import Search from './Search/Search';
 import Loading from '../Loading/Loading';
 const DealsOfDay = lazy(() => import('./DealsOfday/DealsOfDay'))
@@ -34,42 +35,9 @@ function Products() {
     mobile,
     laptop,
     camera,
-    allItems
+    allItems,
+    search
   } = useContext(UserContext)
-
-  // const [dealOfDay, setDealOfDay] = useState([])
-  // const [newItems, setNewItems] = useState([])
-
-  // useEffect(() => {
-  //   console.log('filter');
-
-  //   const arr = [...mobile.filter((item) => item.offer > 35),
-  //   ...laptop.filter((item) => item.offer > 36),
-  //   ...camera.filter((item) => item.offer > 25),
-  //   ...speaker.filter((item) => item.offer > 45),
-  //   ...watch.filter((item) => item.offer > 79),
-  //   ...headset.filter((item) => item.offer > 50)
-  //   ]
-
-  //   shuffle(arr)
-  //   setDealOfDay([...arr])
-  // }, [dealOfDay])
-
-  // useEffect(() => {
-  //   if (allItems && allItems.length > 0) {
-  //     const allArray = [...allItems]
-  //     shuffle(allArray)
-  //     setAllItems([...allArray])
-  //   }
-  // }, [allItems])
-
-  // useEffect(() => {
-  //   const arr = [...mobile, ...laptop, ...speaker]
-  //   if (arr && arr.length > 0) {
-  //     shuffle(arr)
-  //     setNewItems([...arr])
-  //   }
-  // }, [newItems])
 
 
   return (
@@ -81,6 +49,7 @@ function Products() {
       width: '100%',
       pb: '4rem'
     }}>
+      {search && search.items.length > 0 && <Search />}
       <Suspense fallback={<Loading />}>
         {laptop && < DealsOfDay items={laptop} />}
         {camera && < NewProducts items={camera} />}

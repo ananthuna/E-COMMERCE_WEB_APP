@@ -45,8 +45,7 @@ function SearchBar() {
     'Electronics',
     'Camera',
     'Headphones',
-    'Speakers',
-    'Home Theaters'
+    'Speakers'
   ];
 
   const handleChange = (e) => {

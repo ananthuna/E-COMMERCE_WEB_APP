@@ -11,7 +11,6 @@ const path = require('path')
 const fileUpload = require('express-fileupload')
 const fs = require('fs')
 
-
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
@@ -22,7 +21,7 @@ app.use(express.static(path.resolve('./public')));
 app.use(fileUpload());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-const PORT = 3000
+const PORT = 3001
 
 app.use('/api/user', userRouter)
 app.use('/api/item', itemRouter)
@@ -34,13 +33,10 @@ app.use('/api/order', orderRouter)
 //     console.log('/up');
 //     res.sendFile(path.join(__dirname, 'build/index.html'), (err) => {
 //         if (err) {
-
 //             res.status(500).send(err)
 //         }
 //     })
-
 // })
-
 
 app.listen(PORT, () => {
     console.log("server is running on port:" + PORT);
