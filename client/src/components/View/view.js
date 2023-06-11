@@ -1,7 +1,6 @@
 import { Box, Rating, Typography } from '@mui/material'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Button from '@mui/material/Button';
-import { UserContext } from '../../Context/Context'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
@@ -13,30 +12,29 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DoneIcon from '@mui/icons-material/Done';
 import SelectButton from '../SelectButton/SelectButton'
 import './view.css'
-// import QuantityBtn from './QuantityButton/QuantityBtn';
 import QuantityBtn from './QuantityButton/QuantityBtn'
 
 
 
 function view() {
     const navigate = useNavigate()
-    const { details } = useContext(UserContext)
+    // const { details } = useContext(UserContext)
     const [product, setProduct] = useState({})
     const [features, setFeatures] = useState([])
     const pageTopRef = useRef(null)
     const [colors, setColors] = useState([])
-    // const [rate, setRate] = useState()
+    const [name, setName] = useState('')
 
     useEffect(() => {
-        if (details) {
-            localStorage.setItem("myObject", JSON.stringify(details));
-        }
         let item = localStorage.getItem("myObject");
         item = JSON.parse(item)
         setFeatures([...item.features])
         setColors([...item.colors])
         setProduct(item)
+        setName(item.name + item.description)
         pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
+        // console.log('product view');
+        // console.log(item);
     }, [])
 
 
@@ -97,7 +95,8 @@ function view() {
         <Box ref={pageTopRef} sx={{
             display: 'flex',
             flexDirection: 'column',
-            pt: '5.6rem'
+            pt: '5.6rem',
+            // width: '90%'
         }}>
 
             {/* sub bar with nevigate */}
@@ -106,17 +105,18 @@ function view() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 bgcolor: '#f7f7f7',
-                p: 2
-
+                p: 2,
             }}>
                 <Box>
-                    {product && < Typography sx={{
+                    < Typography sx={{
                         maxWidth: '50%',
+                        // width: '10rem',
                         display: 'inline',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
-                        textOverflow: 'ellipsis'
-                    }}><b>product name</b></Typography>}
+                        textOverflow: 'ellipsis',
+                        bgcolor: 'green'
+                    }}><b>{name}</b></Typography>
                 </Box>
                 <Box sx={{
                     display: 'flex',
@@ -135,10 +135,10 @@ function view() {
                 display: 'flex',
                 mt: '2rem',
                 mb: '1rem',
-                ml: '2rem'
+                ml: '2rem',
             }}>
                 {/* product image view */}
-                {/* <Box sx={{
+                <Box sx={{
                     width: '40%',
                     height: '87%',
                     display: 'flex',
@@ -157,12 +157,12 @@ function view() {
                         borderRadius: 2,
                         borderColor: 'lightgrey'
                     }}>
-                        <img src={baseUrl + '/' + product.url} alt='img' width={350} height={400}></img>
+                        <img src={product.url && baseUrl + '/' + product.url} alt='img' width={350} height={400}></img>
                     </Box>
-                </Box>   */}
+                </Box>
 
                 {/* product details */}
-                {/* <Box sx={{
+                <Box sx={{
                     width: '43%',
                     height: '87%',
                     p: 1
@@ -172,7 +172,7 @@ function view() {
                             pl: '0rem',
                             fontSize: '1.4rem',
                             maxWidth: '100%'
-                        }}><b>{product.name + product.description}</b></Typography>
+                        }}><b>{name}</b></Typography>
                     <hr />
                     {features.map((item, index) =>
                         <Box key={index} sx={{
@@ -292,7 +292,7 @@ function view() {
                         }}><b>HURRY! ONLY {product.quantity} LEFT IN STOCK.</b></Typography>
                     </Box>
                     <hr />
-                </Box> */}
+                </Box>
             </Box>
         </Box >
     )

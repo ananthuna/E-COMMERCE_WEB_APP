@@ -13,7 +13,7 @@ const CssSelect = styled(Select)({
 
 export default function BasicSelect({ categorys }) {
 
-    const [option, setOption] = React.useState(1);
+    const [option, setOption] = React.useState('');
     const {
         setSearch,
         allItems,
@@ -25,6 +25,10 @@ export default function BasicSelect({ categorys }) {
         speaker
     } = React.useContext(UserContext)
 
+    React.useEffect(() => {
+        setOption(1)
+    }, [])
+
     const handleChange = (e) => {
         setOption(e.target.value);
     };
@@ -33,7 +37,8 @@ export default function BasicSelect({ categorys }) {
 
     const handleSelect = (item) => {
         console.log(item);
-        if (item === 'All Collections') return setSearch({ items: [...allItems], title: item })
+        // if (item === 'All Collections') return setSearch({ items: [...allItems], title: item })
+        if (item === 'All Collections') return setSearch([])
         if (item === 'Mobiles & Tablets') return setSearch({ items: [...mobile], title: item })
         if (item === 'laptops & computers') return setSearch({ items: [...laptop], title: item })
         if (item === 'Smart watches') return setSearch({ items: [...watch], title: item })
@@ -41,7 +46,6 @@ export default function BasicSelect({ categorys }) {
         if (item === 'Camera') return setSearch({ items: [...camera], title: item })
         if (item === 'Headphones') return setSearch({ items: [...headset], title: item })
         if (item === 'Speakers') return setSearch({ items: [...speaker], title: item })
-        // if (item === 'Home Theaters') return setSearch([...allItems])
     }
 
     return (
@@ -57,7 +61,8 @@ export default function BasicSelect({ categorys }) {
                 MenuProps={{
                     disableScrollLock: true,
                 }}
-                value={option}
+                defaultValue=''
+                value={option || ''}
                 onChange={handleChange}
                 sx={{ width: '10rem' }}
             >

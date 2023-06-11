@@ -34,7 +34,7 @@ function footer() {
             alignItems: 'center',
             justifyContent: 'space-around',
             color: 'white',
-            bgcolor: '#1c2a5e'
+            bgcolor: '#1c2a5e',
         }}>
 
             <Box>

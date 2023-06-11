@@ -15,7 +15,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function Products({ tab, items }) {
     const navigate = useNavigate()
-    const { setDetails, setCartitems } = useContext(UserContext)
+    const { setCartitems } = useContext(UserContext)
     const [wishlist, setWishlist] = useState([])
     const [alert, setAlert] = useState(false)
 
@@ -35,8 +35,8 @@ function Products({ tab, items }) {
             }).catch((err) => {
                 if (err) return navigate('/login')
                 // if (err.response.data.error === 'Authentication required') {
-                    // console.log('product card wishlist get axios error..');
-                    // return navigate('/login')
+                // console.log('product card wishlist get axios error..');
+                // return navigate('/login')
                 // }
             })
     }, [])
@@ -44,7 +44,10 @@ function Products({ tab, items }) {
 
     const handleView = (item) => () => {
         if (!item) return console.log('item null');
-        setDetails({ ...item })
+        // console.log('click view');
+        // console.log(item);
+        localStorage.setItem("myObject", JSON.stringify(item));
+        // setDetails({ ...item })
         navigate('/view')
     }
 

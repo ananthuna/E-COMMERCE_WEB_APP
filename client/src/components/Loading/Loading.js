@@ -9,7 +9,9 @@ function Loading() {
             pt: '5rem',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            width: '100%',
+            height: '25rem'
         }}>
             <RotatingLines
                 strokeColor="grey"
