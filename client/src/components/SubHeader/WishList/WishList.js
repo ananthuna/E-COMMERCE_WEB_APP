@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { Box, IconButton } from '@mui/material';
+import { Badge, Box, IconButton } from '@mui/material';
 import './WishList.css'
+import { UserContext } from '../../../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 function WishList() {
+    const { setValue, wishlist } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    const handleWishlist = () => {
+        setValue(3)
+        navigate('/account')
+    }
     return (
         <Box sx={{
             borderLeft: 1,
@@ -18,8 +27,16 @@ function WishList() {
                 '&:hover': {
                     backgroundColor: "white"
                 }
-            }}>
-                <FavoriteBorderOutlinedIcon className='cartIcon' />
+            }} onClick={handleWishlist}>
+                <Badge badgeContent={wishlist && wishlist.length}
+                    sx={{
+                        color: 'black',
+                        // "& .MuiBadge-badge": {
+                        //     backgroundColor: "#fdd700"
+                        // },
+                    }}>
+                    <FavoriteBorderOutlinedIcon className='cartIcon' />
+                </Badge>
             </IconButton>
         </Box>
     )

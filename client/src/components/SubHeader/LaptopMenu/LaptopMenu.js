@@ -1,10 +1,27 @@
 import { Box, Typography, MenuItem } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import LaptopMacOutlinedIcon from '@mui/icons-material/LaptopMacOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './LaptopMenu.css'
+import { UserContext } from '../../../Context/Context';
 
 function LaptopMenu({ prop, type }) {
+
+    const {
+        laptop,
+        setSearch
+    } = useContext(UserContext)
+
+
+    const handleSelect = (item) => {
+        if (item === 'Dell laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === 'hp laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === 'lenova laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === 'thin & light laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === '2-in-1 laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === 'Gaming laptops') return setSearch({ items: [...laptop], title: item })
+        if (item === 'Budget laptops') return setSearch({ items: [...laptop], title: item })
+    }
 
 
     return (
@@ -50,7 +67,7 @@ function LaptopMenu({ prop, type }) {
                         <hr />
                         {prop && prop.map((item, index) =>
                             <MenuItem key={index} >
-                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center">{item}</Typography>
+                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center" onClick={() => handleSelect(item)}>{item}</Typography>
                             </MenuItem>
                         )}
                     </Box>

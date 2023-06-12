@@ -1,10 +1,29 @@
 import { Box, Typography, MenuItem } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './HomeMenu.css'
+import { UserContext } from '../../../Context/Context';
 
 function HomeMenu({ prop, type }) {
+    const {
+        watch,
+        laptop,
+        mobile,
+        speaker,
+        setSearch
+    } = useContext(UserContext)
+
+    const handleSelect = (item) => {
+        if (item === 'Home') return setSearch({ items: [], title: '' })
+        if (item === 'Best Offers') return setSearch({ items: [...watch], title: 'Best Offers' })
+        if (item === 'up-coming offers') return setSearch({ items: [...laptop], title: 'up=coming offers' })
+        if (item === 'new products') return setSearch({ items: [...mobile], title: 'new products' })
+        if (item === 'best sell') return setSearch({ items: [...speaker], title: 'best sell' })
+        if (item === 'Mobiles') return setSearch({ items: [...mobile], title: 'Mobiles' })
+        if (item === 'laptops') return setSearch({ items: [...laptop], title: 'laptops' })
+        if (item === 'Smart watches') return setSearch({ items: [...watch], title: 'Smart watches' })
+    }
 
     return (
         <Box sx={{
@@ -45,7 +64,7 @@ function HomeMenu({ prop, type }) {
                     <Box >
                         {prop && prop.map((item, index) =>
                             <MenuItem key={index} >
-                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center">{item}</Typography>
+                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center" onClick={() => handleSelect(item)}>{item}</Typography>
                             </MenuItem>
                         )}
                     </Box>

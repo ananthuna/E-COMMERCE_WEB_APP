@@ -105,23 +105,23 @@ function view() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 bgcolor: '#f7f7f7',
-                p: 2,
+                p: 2
             }}>
-                <Box>
+                <Box sx={{
+                    width: '50%'
+                }}>
                     < Typography sx={{
-                        maxWidth: '50%',
-                        // width: '10rem',
-                        display: 'inline',
+                        // width: '100%',
+                        maxWidth: '100%',
+                        display: 'block',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        bgcolor: 'green'
                     }}><b>{name}</b></Typography>
                 </Box>
                 <Box sx={{
                     display: 'flex',
                     gap: 2,
-                    pr: 3
                 }}>
                     <HomeOutlinedIcon sx={{ fontSize: 18, cursor: 'pointer' }} onClick={() => navigate('/')} />
                     <KeyboardArrowRightIcon sx={{ fontSize: 18 }} />

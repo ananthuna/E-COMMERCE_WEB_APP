@@ -1,10 +1,28 @@
 import { Box, Typography, MenuItem } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './HeadphoneMenu.css'
+import { UserContext } from '../../../Context/Context';
 
 function HeadphoneMenu({ prop, type }) {
+
+    const {
+        headset,
+        setSearch
+    } = useContext(UserContext)
+
+   
+    const handleSelect = (item) => {
+        if (item === 'boat') return setSearch({ items: [...headset], title: item })
+        if (item === 'sony') return setSearch({ items: [...headset], title: item })
+        if (item === 'samsung') return setSearch({ items: [...headset], title: item })
+        if (item === 'jabra') return setSearch({ items: [...headset], title: item })
+        if (item === 'Audio Technica') return setSearch({ items: [...headset], title: item })
+        if (item === 'Generic') return setSearch({ items: [...headset], title: item })
+        if (item === 'Panasonic') return setSearch({ items: [...headset], title: item })
+        if (item === 'Apple') return setSearch({ items: [...headset], title: item })
+    }
 
     return (
         <Box sx={{
@@ -49,7 +67,7 @@ function HeadphoneMenu({ prop, type }) {
                         <hr />
                         {prop && prop.map((item, index) =>
                             <MenuItem key={index} >
-                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center">{item}</Typography>
+                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center" onClick={() => handleSelect(item)}>{item}</Typography>
                             </MenuItem>
                         )}
                     </Box>

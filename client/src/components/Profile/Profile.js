@@ -7,10 +7,14 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Address from './Address/Address'
 import Orders from './Orders/Orders'
 import WishList from './WishList/WishList';
+// import Loading from '../Loading/Loading'
 import Coupon from './Coupon/Coupon';
 import Logout from './Logout/Logout';
 import './Profile.css'
 import { UserContext } from '../../Context/Context';
+// import axios from 'axios';
+// import { baseUrl } from '../../url';
+// const WishList = React.lazy(() => import('./WishList/WishList'))
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -46,7 +50,7 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-    const { value, setValue } = React.useContext(UserContext)
+    const { value, setValue, wishlist } = React.useContext(UserContext)
 
 
 
@@ -96,7 +100,9 @@ export default function VerticalTabs() {
                 <Orders />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <WishList />
+                {/* <React.Suspense fallback={<Loading />}> */}
+                    {wishlist && <WishList />}
+                {/* </React.Suspense> */}
             </TabPanel>
             <TabPanel value={value} index={4}>
                 <Coupon />

@@ -16,7 +16,7 @@ const home = [
     'best sell',
     'Mobiles',
     'laptops',
-    'smart watches'
+    'Smart watches'
 ]
 const laptop = [
     'Dell laptops',

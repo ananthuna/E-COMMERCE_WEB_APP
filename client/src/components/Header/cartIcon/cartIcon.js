@@ -10,7 +10,7 @@ import './cartIcon.css'
 
 function cartIcon() {
     const navigate = useNavigate()
-    const { setCartitems } = useContext(UserContext)
+    const { cartitems } = useContext(UserContext)
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function cartIcon() {
         axios.get(`${baseUrl}/api/cart/cartitems`, customConfig)
             .then((res) => {
                 setItems(res.data.items)
-                setCartitems(res.data)
+                // setCartitems(res.data)
             }).catch((err) => {
                 if (err) return navigate('/login')
                 // if (err.response.data.error === 'Authentication required') {
@@ -34,7 +34,7 @@ function cartIcon() {
                 // }
             })
 
-    }, [])
+    }, [cartitems])
 
 
 
@@ -53,10 +53,6 @@ function cartIcon() {
                         sx={{
                             fontSize: 30,
                             color: 'white',
-                            // "&:hover": {
-                            //     color: 'yellow',
-                            //     cursor: "pointer"
-                            // }
                         }} />
                 </Badge>
             </IconButton>

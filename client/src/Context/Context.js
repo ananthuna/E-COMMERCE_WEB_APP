@@ -7,6 +7,7 @@ export const UserContext = createContext(null)
 
 export default function Context({ children }) {
     const [details, setDetails] = useState(null)
+    const [wishlist, setWishlist] = useState([])
     const [value, setValue] = useState(0);
     const [user, setUser] = React.useState()
     const [cartitems, setCartitems] = useState({})
@@ -18,6 +19,7 @@ export default function Context({ children }) {
     const [allItems, setAllItems] = useState()
     const [laptop, setLaptop] = useState([])
     const [camera, setCamera] = useState([])
+    const [level, setLevel] = useState(0);
     const [speaker, setSpeaker] = useState([])
     const [watch, setWatch] = useState([])
     const [headset, setHeadset] = useState([])
@@ -43,6 +45,8 @@ export default function Context({ children }) {
 
     return (
         <UserContext.Provider value={{
+            setLevel, level,
+            setWishlist, wishlist,
             setSearch, search,
             setSpeaker,
             speaker,

@@ -27,6 +27,15 @@
     background-color: #f5f5f5;
 }
 
+.add_to_cart_button_disabled {
+    border: 0;
+    width: 90%;
+    height: 2rem;
+    color: black;
+    border-radius: 4px;
+    background-color: #979696;
+}
+
 .add_to_cart_button:hover {
     background-color: #1c2a5e;
     color: white;

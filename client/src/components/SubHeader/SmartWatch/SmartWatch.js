@@ -1,11 +1,27 @@
 import { Box, Typography, MenuItem } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import WatchOutlinedIcon from '@mui/icons-material/WatchOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import './SmartWatch.css'
+import { UserContext } from '../../../Context/Context';
 
 function SmartWatch({ prop, type }) {
 
+    const {
+        watch,
+        setSearch
+    } = useContext(UserContext)
+
+
+    const handleSelect = (item) => {
+        if (item === 'Noise') return setSearch({ items: [...watch], title: item })
+        if (item === 'boAt') return setSearch({ items: [...watch], title: item })
+        if (item === 'Realme') return setSearch({ items: [...watch], title: item })
+        if (item === 'Samsung') return setSearch({ items: [...watch], title: item })
+        if (item === 'Apple') return setSearch({ items: [...watch], title: item })
+        if (item === 'Honor') return setSearch({ items: [...watch], title: item })
+        if (item === 'Redmi') return setSearch({ items: [...watch], title: item })
+    }
 
     return (
         <Box sx={{
@@ -50,7 +66,7 @@ function SmartWatch({ prop, type }) {
                         <hr />
                         {prop && prop.map((item, index) =>
                             <MenuItem key={index} >
-                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center">{item}</Typography>
+                                <Typography sx={{ fontSize: '0.9rem' }} textAlign="center" onClick={() => handleSelect(item)}>{item}</Typography>
                             </MenuItem>
                         )}
                     </Box>

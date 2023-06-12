@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ProductDetails from '../../Cart/List/ProductDetails/ProductDetails'
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -11,9 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 function WishList() {
     const navigate = useNavigate()
-    const [products, setProducts] = useState([])
-    const [wishlist, setWishlist] = useState([])
-
+    const { wishlist, setWishlist } = useContext(UserContext)
     const { setDetails } = useContext(UserContext)
 
     useEffect(() => {
@@ -24,16 +22,16 @@ function WishList() {
                 'Authorization': `Bearer ${user.token}`
             }
         }
-
-        axios.get(`${baseUrl}/api/wishlist/wishlistitems`, customConfig)
+        axios.get(`${baseUrl}/api/wishlist/list`, customConfig)
             .then((res) => {
-                res.data.length > 0 && setProducts(res.data)
-                console.log(res.data)
+                setWishlist([...res.data.items])
+                console.log('wishlist updated')
+                console.log(res.data.items);
             }).catch((err) => {
                 console.log('profile wishlist get axios error');
                 console.log(err);
             })
-    }, [wishlist])
+    }, [])
 
     const handleView = (item) => () => {
         if (item) setDetails(item)
@@ -53,7 +51,8 @@ function WishList() {
         }
         axios.post(`${baseUrl}/api/wishlist/list`, Data, customConfig)
             .then((res) => {
-                setWishlist(res.data.items)
+                setWishlist([...res.data.items])
+                console.log('removed item from wishlist');
             }).catch((err) => {
                 console.log('profile wishlist post axios error');
                 console.log(err);
@@ -75,7 +74,7 @@ function WishList() {
                 overflow: "hidden",
                 overflowY: "scroll",
             }}>
-                {products && products.length > 0 && products.map((product, index) =>
+                {wishlist && wishlist.length > 0 && wishlist.map((product, index) =>
                     product && <Box sx={{
                         border: 1,
                         borderColor: 'lightgrey',

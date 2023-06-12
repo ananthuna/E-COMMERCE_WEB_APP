@@ -6,6 +6,7 @@ import Footer from '../components/Footer/footer'
 // import SubHeader from '../components/SubHeader/SubHeader'
 
 function Cart() {
+
     return (
         <Box>
             <Header />

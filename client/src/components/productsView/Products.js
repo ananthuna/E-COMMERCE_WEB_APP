@@ -7,7 +7,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import './product.css'
 import { baseUrl } from '../../url'
 import axios from 'axios'
+// import { green, white } from '@mui/material/colors';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import CircularProgress from '@mui/material/CircularProgress';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
@@ -15,8 +17,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function Products({ tab, items }) {
     const navigate = useNavigate()
-    const { setCartitems } = useContext(UserContext)
-    const [wishlist, setWishlist] = useState([])
+    const { setCartitems, setWishlist, wishlist } = useContext(UserContext)
+    const [loading, setLoading] = useState('')
     const [alert, setAlert] = useState(false)
 
     useEffect(() => {
@@ -31,7 +33,7 @@ function Products({ tab, items }) {
 
         axios.get(`${baseUrl}/api/wishlist/list`, customConfig)
             .then((res) => {
-                setWishlist(res.data.items)
+                setWishlist([...res.data.items])
             }).catch((err) => {
                 if (err) return navigate('/login')
                 // if (err.response.data.error === 'Authentication required') {
@@ -64,7 +66,7 @@ function Products({ tab, items }) {
         }
         axios.post(`${baseUrl}/api/wishlist/list`, Data, customConfig)
             .then((res) => {
-                setWishlist(res.data.items)
+                setWishlist([...res.data.items])
                 // console.log(res.data.items);
             }).catch((err) => {
                 // console.log(err);
@@ -73,6 +75,7 @@ function Products({ tab, items }) {
     }
 
     const handleCart = (product) => {
+        setLoading(product._id)
         let user = localStorage.getItem("user")
         user = JSON.parse(user)
         const customConfig = {
@@ -94,6 +97,7 @@ function Products({ tab, items }) {
             .then((res) => {
                 setCartitems(res.data)
                 setAlert(true)
+                setLoading('')
                 const timeId = setTimeout(() => {
                     // After 3 seconds set the show value to false
                     setAlert(false)
@@ -133,7 +137,7 @@ function Products({ tab, items }) {
                                 ml: '0.1%'
                             }}>
                                 {wishlist && wishlist.map((wish, index) =>
-                                    wish.itemId === item._id &&
+                                    wish._id === item._id &&
 
                                     <FavoriteIcon key={index} onClick={() => handleIcon(item._id)} className='like_btn1' style={{ color: "#d0012e" }} />
                                 )}
@@ -229,11 +233,26 @@ function Products({ tab, items }) {
                                     <Box sx={{
                                         mt: -1.5,
                                         pl: 2.3,
-                                        mb: 1
+                                        mb: 1,
+                                        position: 'relative'
                                     }}>
-                                        <button className='add_to_cart_button'
+                                        <button className={loading + '' === item._id + '' ? 'add_to_cart_button_disabled' : 'add_to_cart_button'}
+                                            disabled={loading + '' === item._id + ''}
                                             onClick={() => handleCart(item)}
                                         >+ ADD TO CART</button>
+                                        {loading + '' === item._id + '' && (
+                                            <CircularProgress
+                                                size={24}
+                                                sx={{
+                                                    color: 'white',
+                                                    position: 'absolute',
+                                                    top: '50%',
+                                                    left: '50%',
+                                                    marginTop: '-12px',
+                                                    marginLeft: '-12px',
+                                                }}
+                                            />
+                                        )}
                                     </Box>
                                 </Box>
                             </Box>
