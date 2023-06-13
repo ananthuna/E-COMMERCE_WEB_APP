@@ -154,7 +154,7 @@ export default function SignIn({ socket }) {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <ForumOutlinedIcon />
             </Avatar>
-            <Typography sx={{ component: "h1", variant: "h5", color: "secondary.main" }}>CHIT CHAT</Typography>
+            <Typography sx={{ component: "h1", variant: "h5", color: "secondary.main" }}>Shopi</Typography>
           </Box>
           <Typography component="h2" variant="h5">
             Sign in
