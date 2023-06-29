@@ -125,11 +125,15 @@ router.post('/updateProfile', Auth, async (req, res) => {
 
 //Add delivery address
 router.post('/address', Auth, async (req, res) => {
+    // console.log(req.body);
     const updates = Object.keys(req.body)
     const existedAddress = updates.includes('_id')
+    console.log(existedAddress);
     if (existedAddress) {
+        console.log('added');
         return UpdateAddress(req, res)
     } else {
+        console.log('exist');
         return addAddress(req, res)
     }
 })

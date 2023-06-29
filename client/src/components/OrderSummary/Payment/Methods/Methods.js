@@ -114,6 +114,42 @@ function Methods() {
                 </Box>
                 {/* <Typography>₹{shippingFee.toFixed(2)}</Typography> */}
             </Box>
+
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                border: 1,
+                borderColor: '#e6e6e6',
+                borderRadius: 2,
+                pr: 2.5,
+                pl: 1.5,
+                mt: 1
+            }}>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Radio
+                        checked={!paymentMethod}
+                        onClick={() => {
+                            setPaymentMethod(!paymentMethod)
+                        }}
+                        // value=""
+                        name="method-buttons"
+                        inputProps={{ 'aria-label': 'A' }}
+                        sx={{
+                            color: '#999999',
+                            '&.Mui-checked': {
+                                color: '#999999',
+                            },
+                        }}
+                    />
+                    <Typography>UPI Payment</Typography>
+                </Box>
+                {/* <Typography>₹{shippingFee.toFixed(2)}</Typography> */}
+            </Box>
         </Box>
     )
 }

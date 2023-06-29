@@ -45,7 +45,7 @@ function Address({ address, name, number, addressError, setAddressError }) {
                             color: '#c0bfc2'
                         }}>Add shipping address!</Typography>}
 
-                        {addressError && <Typography sx={{
+                        {addressError && !address && <Typography sx={{
                             color: '#D0002D'
                         }}>Add shipping address!</Typography>}
                     </Box>
